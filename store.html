@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Shoe Store</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+  }
+  .container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: auto;
+  }
+  .product {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+  }
+  .product img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+  }
+  .product-info {
+    flex-grow: 1;
+    text-align: left;
+  }
+  .product-info h3 {
+    margin: 0 0 5px 0;
+  }
+  .quantity {
+    display: flex;
+    align-items: center;
+  }
+  .quantity input {
+    width: 50px;
+    text-align: center;
+    margin: 0 5px;
+  }
+  #bill {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    white-space: pre-wrap;
+  }
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  button:hover {
+    background-color: #45a049;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Shoe Store</h1>
+  <p>Select the quantity for each item and click 'Generate Bill'.</p>
+
+  <div class="product">
+    <img src="https://via.placeholder.com/100" alt="Casual Sneakers">
+    <div class="product-info">
+      <h3>Casual Sneakers</h3>
+      <p>Price: $<span class="price">75.00</span></p>
+    </div>
+    <div class="quantity">
+      <label for="sneakers-qty">Quantity:</label>
+      <input type="number" id="sneakers-qty" value="0" min="0">
+    </div>
+  </div>
+
+  <div class="product">
+    <img src="https://via.placeholder.com/100" alt="Running Shoes">
+    <div class="product-info">
+      <h3>Running Shoes</h3>
+      <p>Price: $<span class="price">120.00</span></p>
+    </div>
+    <div class="quantity">
+      <label for="running-qty">Quantity:</label>
+      <input type="number" id="running-qty" value="0" min="0">
+    </div>
+  </div>
+
+  <div class="product">
+    <img src="https://via.placeholder.com/100" alt="Hiking Boots">
+    <div class="product-info">
+      <h3>Hiking Boots</h3>
+      <p>Price: $<span class="price">95.00</span></p>
+    </div>
+    <div class="quantity">
+      <label for="hiking-qty">Quantity:</label>
+      <input type="number" id="hiking-qty" value="0" min="0">
+    </div>
+  </div>
+
+  <button onclick="generateBill()">Generate Bill</button>
+
+  <div id="bill"></div>
+</div>
+
+<script>
+function generateBill() {
+  const products = [
+    { name: 'Casual Sneakers', price: 75.00, qtyId: 'sneakers-qty' },
+    { name: 'Running Shoes', price: 120.00, qtyId: 'running-qty' },
+    { name: 'Hiking Boots', price: 95.00, qtyId: 'hiking-qty' }
+  ];
+
+  let total = 0;
+  let billText = '--- Your Bill ---\n\n';
+  let itemsPurchased = false;
+
+  products.forEach(product => {
+    const quantity = parseInt(document.getElementById(product.qtyId).value);
+    if (quantity > 0) {
+      const subtotal = product.price * quantity;
+      billText += `${product.name} x ${quantity} = $${subtotal.toFixed(2)}\n`;
+      total += subtotal;
+      itemsPurchased = true;
+    }
+  });
+
+  const billElement = document.getElementById('bill');
+  
+  if (!itemsPurchased) {
+    alert('Thank you for visiting! You have not purchased anything.');
+    billElement.innerText = '';
+  } else {
+    billText += `\nTotal: $${total.toFixed(2)}`;
+    billElement.innerText = billText;
+  }
+}
+</script>
+
+</body>
+</html>
