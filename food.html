@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aesthetic Eats - Order Food</title>
+<style>
+  /* Olive Strauss Background (approximate) */
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #8b8c5e; /* Olive Strauss-like color */
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  h1, h2 {
+    text-align: center;
+    color: #4b4b2e;
+  }
+  .food-category {
+    margin-bottom: 30px;
+  }
+  .food-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #e6e7d6;
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out;
+  }
+  .food-item:hover {
+    transform: scale(1.02);
+  }
+  .food-item img {
+    width: 120px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 15px;
+  }
+  .item-info {
+    flex-grow: 1;
+  }
+  .item-info h3 {
+    margin: 0 0 5px 0;
+    color: #5a5a3a;
+  }
+  .item-info p {
+    margin: 0;
+    font-size: 0.9em;
+  }
+  .price {
+    font-weight: bold;
+    color: #8b8c5e;
+  }
+  .quantity-control {
+    display: flex;
+    align-items: center;
+  }
+  .quantity-control input[type="number"] {
+    width: 50px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin-left: 10px;
+  }
+  button {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 25px;
+    background-color: #4b4b2e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #6a6a4a;
+  }
+  #bill-container {
+    display: none;
+    margin-top: 30px;
+    padding: 30px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #a5a682, #c6c7b5); /* Aesthetic gradient background for bill */
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: left;
+  }
+  #bill-container h2 {
+    text-align: center;
+    color: #4b4b2e;
+  }
+  #bill-details {
+    white-space: pre;
+    font-family: monospace;
+    font-size: 1.1em;
+    line-height: 1.6;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 15px;
+    border-radius: 8px;
+  }
+  #bill-container p {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Aesthetic Eats</h1>
+  <p style="text-align: center;">Choose your food items from our delightful menu.</p>
+
+  <div class="food-category">
+    <h2>Appetizers</h2>
+    <div class="food-item" data-price="8.50">
+      <img src="https://via.placeholder.com/120x100?text=Bruschetta" alt="Bruschetta">
+      <div class="item-info">
+        <h3>Bruschetta</h3>
+        <p>Grilled bread with tomatoes, garlic, and basil.</p>
+        <p class="price">$8.50</p>
+      </div>
+      <div class="quantity-control">
+        <label for="bruschetta-qty">Qty:</label>
+        <input type="number" id="bruschetta-qty" value="0" min="0">
+      </div>
+    </div>
+  </div>
+
+  <div class="food-category">
+    <h2>Main Courses</h2>
+    <div class="food-item" data-price="18.00">
+      <img src="https://via.placeholder.com/120x100?text=Pasta+Primavera" alt="Pasta Primavera">
+      <div class="item-info">
+        <h3>Pasta Primavera</h3>
+        <p>Pasta with fresh seasonal vegetables and a light sauce.</p>
+        <p class="price">$18.00</p>
+      </div>
+      <div class="quantity-control">
+        <label for="pasta-qty">Qty:</label>
+        <input type="number" id="pasta-qty" value="0" min="0">
+      </div>
+    </div>
+    <div class="food-item" data-price="25.50">
+      <img src="https://via.placeholder.com/120x100?text=Salmon+Fillet" alt="Salmon Fillet">
+      <div class="item-info">
+        <h3>Grilled Salmon Fillet</h3>
+        <p>A perfectly grilled salmon fillet with herbs and lemon.</p>
+        <p class="price">$25.50</p>
+      </div>
+      <div class="quantity-control">
+        <label for="salmon-qty">Qty:</label>
+        <input type="number" id="salmon-qty" value="0" min="0">
+      </div>
+    </div>
+  </div>
+
+  <div class="food-category">
+    <h2>Desserts</h2>
+    <div class="food-item" data-price="7.00">
+      <img src="https://via.placeholder.com/120x100?text=Chocolate+Cake" alt="Chocolate Cake">
+      <div class="item-info">
+        <h3>Lava Chocolate Cake</h3>
+        <p>Rich chocolate cake with a molten center.</p>
+        <p class="price">$7.00</p>
+      </div>
+      <div class="quantity-control">
+        <label for="cake-qty">Qty:</label>
+        <input type="number" id="cake-qty" value="0" min="0">
+      </div>
+    </div>
+  </div>
+
+  <button onclick="generateBill()">Generate Bill</button>
+
+  <div id="bill-container">
+    <h2>Your Order Summary</h2>
+    <pre id="bill-details"></pre>
+    <p>Come again next time!</p>
+  </div>
+</div>
+
+<script>
+  function generateBill() {
+    const foodItems = document.querySelectorAll('.food-item');
+    let total = 0;
+    let billDetails = '';
+    
+    foodItems.forEach(item => {
+      const price = parseFloat(item.dataset.price);
+      const quantity = parseInt(item.querySelector('input').value);
+      const itemName = item.querySelector('h3').textContent;
+
+      if (quantity > 0) {
+        const subtotal = price * quantity;
+        billDetails += `${itemName.padEnd(25)} x ${quantity.toString().padEnd(4)} = $${subtotal.toFixed(2)}\n`;
+        total += subtotal;
+      }
+    });
+
+    const billDetailsElement = document.getElementById('bill-details');
+    const billContainer = document.getElementById('bill-container');
+    
+    if (total > 0) {
+      billDetails += `\n${'Total:'.padEnd(25)} = $${total.toFixed(2)}`;
+      billDetailsElement.textContent = billDetails;
+      billContainer.style.display = 'block';
+    } else {
+      alert("You haven't selected any items yet. Please choose your food before generating the bill.");
+      billContainer.style.display = 'none';
+    }
+  }
+</script>
+
+</body>
+</html>
